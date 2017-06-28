@@ -37,23 +37,27 @@ public class Xfermodes extends GraphicsActivity {
 
     // create a bitmap with a circle, used for the "dst" image
     static Bitmap makeDst(int w, int h) {
+        w = w * 3 / 4;
+        h = h * 3 / 4;
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         p.setColor(0xFFFFCC44);
-        c.drawOval(new RectF(0, 0, w * 3 / 4, h * 3 / 4), p);
+        c.drawOval(new RectF(0, 0, w, h), p);
         return bm;
     }
 
     // create a bitmap with a rect, used for the "src" image
     static Bitmap makeSrc(int w, int h) {
+        w = w * 5 / 8;
+        h = h * 5 / 8;
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         p.setColor(0xFF66AAFF);
-        c.drawRect(w / 3, h / 3, w * 19 / 20, h * 19 / 20, p);
+        c.drawRect(0, 0, w, h, p);
         return bm;
     }
 
@@ -123,6 +127,7 @@ public class Xfermodes extends GraphicsActivity {
             super(context);
 
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//            setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
             //
             x_translate = AppUtil.dp2px(context, DX_TRANSLATE);
@@ -187,7 +192,7 @@ public class Xfermodes extends GraphicsActivity {
                 canvas.translate(x, y);
                 canvas.drawBitmap(mDstB, 0, 0, paint);
                 paint.setXfermode(sModes[i]);
-                canvas.drawBitmap(mSrcB, 0, 0, paint);
+                canvas.drawBitmap(mSrcB, W * 3 / 8, H * 3 / 8, paint);
                 paint.setXfermode(null);
                 canvas.restoreToCount(sc);
 
